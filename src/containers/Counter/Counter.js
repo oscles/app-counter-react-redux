@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import * as actionTypes from '../../store/actions';
 import CounterControl from '../../components/CounterControl/CounterControl';
 import CounterOutput from '../../components/CounterOutput/CounterOutput';
+import * as actionCreators from '../../store/actions/index';
 
 class Counter extends Component {
     state = {
@@ -36,7 +36,6 @@ class Counter extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <div>
                 <CounterOutput value={this.props.ctr}/>
@@ -51,7 +50,7 @@ class Counter extends Component {
                     clicked={this.props.onAddCounter}/>
                 <CounterControl
                     label="Subtract 5"
-                    clicked={this.props.onSubstractCounter}/>
+                    clicked={this.props.onSubtractCounter}/>
                 <hr/>
                 <CounterControl
                     label="Store Result"
@@ -77,12 +76,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIncrementCounter: () => dispatch({type: actionTypes.INCREMENT}),
-        onDecrementCounter: () => dispatch({type: actionTypes.DECREMENT}),
-        onAddCounter: () => dispatch({type: actionTypes.ADD, value: 5}),
-        onSubstractCounter: () => dispatch({type: actionTypes.SUBSTRACT, value: 5}),
-        onStoreResult: (result) => dispatch({type: actionTypes.STORE_RESULT, result}),
-        onDeleteResult: (id) => dispatch({type: actionTypes.DELETE_RESULT, selectedElement: id}),
+        onIncrementCounter: () => dispatch(actionCreators.increment()),
+        onDecrementCounter: () => dispatch(actionCreators.decrement()),
+        onAddCounter: () => dispatch(actionCreators.add(5)),
+        onSubtractCounter: () => dispatch(actionCreators.subtract(5)),
+        onStoreResult: (result) => dispatch(actionCreators.storeResult(result)),
+        onDeleteResult: (id) => dispatch(actionCreators.deleteResult(id)),
     };
 };
 
